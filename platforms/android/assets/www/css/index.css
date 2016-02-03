@@ -1,0 +1,414 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    height:100px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:50px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:0px auto; 
+    color: #FFFFFF /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+#my_form {
+    text-align: center;
+    margin: 25px 0px;
+}
+#my_form form {
+    color: #FFFFFF;
+}
+
+.logo.navigation-bar--android__center {
+    font-weight: 700;
+}
+/*--------------------------Airport pickup drop page-------------------------*/
+.radio-button__checkmark {
+    margin-right: 7px;
+    width: 20px !important;
+    height: 20px !important;
+}
+.sign_up form .form-group input,.sign_in form .form-group input, #airport_pickup_form form .form-group input, #airport_drop_form form .form-group input {
+    width: 100%;
+    /*background: #242424;*/
+    height: 37px;
+    color: #FFFFFF;
+    /*border: 1px solid #BDBDBD;*/
+    border-radius: 0px;
+    font-size: 13px;
+}
+  #round_trip_form1 form .form-group input,#round_trip_form2 form .form-group input, #round_trip_form3 form .form-group input,#round_trip_form4 form .form-group input, #office_pickup_form form .form-group input, #office_drop_form form .form-group input, #railway_drop_form form .form-group input, #railway_pickup_form form .form-group input {
+    width: 100%;
+    /*background: #242424;*/
+    height: 37px;
+    color: #FFFFFF;
+    /*border: 1px solid #BDBDBD;*/
+    border-radius: 0px;
+    font-size: 13px;
+}
+.page__background {
+   background: #41484b; !important;
+}
+.page__content {}
+.navigation-bar {
+    background: #444444 !important;
+}
+ons-icon.ng-scope.ons-icon.ons-icon--ion.ion-drag {
+    color: #FFFFFF;
+}
+.navigation-bar--android__center {
+
+    width: 75% !important;
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    margin: 0 auto !important;
+    text-align: center !important;
+
+}
+button.map_btn {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    width: 60%;
+    margin: 0 auto;
+    right: 0;
+    z-index: 9;
+    background: #43A047;
+    border-radius: 0px; 
+}
+.tab-bar.tab-bar--top.tab-bar--top-border.tabbar_one {
+    background-color: #000000;
+}
+/*.tab-bar.tab-bar--top.tab-bar--top-border.tabbar_two {
+    background: #FFFFFF;
+}*/
+button.tab-bar__button.tab-bar--top-border__button.airport_tabs {
+    font-weight: 500;
+    font-size: 14px;
+}
+.tab_two .ons-tab-bar__footer {
+    background-color: rgb(68, 68, 68) !important;
+}
+.tab_two_btn button.tab-bar__button:active {
+    color: #FFFFFF;
+}
+.tab-bar.avail_now_tab_sec, .tab-bar.avail_now_pickup_tab_sec {
+    background: #444444;
+    border: 1px solid black;
+    padding: 0px 0;
+}
+.tab-bar.avail_now_tab_sec button, .tab-bar.avail_now_pickup_tab_sec button {
+   color: #FFFFFF;
+   background: #363535;
+}
+:checked + .tab-bar__button.advnc_btm {
+    background: #363535;
+    color: #43A047;
+}
+:checked + .tab-bar__button.advnc__pickup_btm {
+    background: #363535;
+    color: #43A047;
+}
+:checked + .tab-bar__button.airport_tabs {
+    color: #FFFFFF;
+}
+.passngr_selection div label {
+    font-size: 13px;
+    text-transform: lowercase;
+    font-weight: 500;
+    margin-right: 10px;
+}
+.avail_now_tab_sec label:first-child, .avail_now_pickup_tab_sec label:first-child {
+    padding: 6px 3px 6px 6px;
+    
+}
+.avail_now_tab_sec label:last-child, .avail_now_pickup_tab_sec label:last-child {
+    padding: 6px 6px 6px 3px;
+    
+}
+button.button.button--large--cta.registration_btn {
+    background: #43A047;
+    border-radius: 0;
+}
+button.button.button--large--cta.reset_btn {
+    border-radius: 0;
+}
+/*calender button css*/
+
+
+button.dtp-btn-cancel.btn.btn-flat {
+    background: #F44336;
+    color: #fff;
+    border-radius: 0;
+    margin-right: 5px;
+    font-weight: normal;
+}
+button.dtp-btn-ok.btn.btn-flat {
+    border-radius: 0;
+    background: #43A047;
+    color: #fff;
+    font-weight: normal;
+}
+.dtp .p10 > a {
+    color: #FFFFFF !important;
+}
+.tab-bar__button.advnc_btm .tab-bar__label span, .tab-bar__button.advnc__pickup_btm .tab-bar__label span{
+    display: list-item;
+    line-height: 100%;
+}
+.tab-bar__button.advnc_btm .tab-bar__label span:last-child, .tab-bar__button.advnc__pickup_btm .tab-bar__label span:last-child {
+    font-size: 12px;
+}
+.user img {
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 120px;
+    height: 127px;
+}
+.list__item .ons-icon--ion {
+    margin-right: 3px; 
+    color: #A9E4FF;
+}
+.select_box.ng-scope {
+    padding: 15px;
+}
+.list.station_list {
+    /*border-bottom: 1px solid #424242;*/
+    background: #242424;
+}
+.list li.list__item {
+    background: #242424;
+}
+.list.station_list li.list__item.list__item--chevron {
+    border-bottom: 1px solid #424242;
+    text-transform: capitalize;
+}
+.round_time_date, .trip_swap {
+    display: flex;
+}
+
+.round_time_date div:first-child {
+    padding-right: 2px;
+}
+.round_time_date div:last-child {
+    padding-left: 2px;
+}
+.input_element {
+    width: 100%;
+}
+.trip_swap .swap_icon {
+    width: 19%;
+    height: 90px;
+    line-height: 90px;
+}
+#swap_icon1, #swap_icon2, #swap_icon3, #swap_icon4 {
+    color: #43A047;
+}
+#swap_icon1:active, #swap_icon2:active, #swap_icon3:active, #swap_icon4:active  {
+    color: #FFFFFF;
+}
+
+
+/* for Round trip form */
+
+.roundtrip_rides {
+    display: flex;
+    text-align: center;
+    background: rgb(21, 19, 19);
+}
+.roundtrip_rides div.form_flex_div1{
+    width:80%;
+    /*background: #000000;*/
+    text-transform: capitalize;
+    padding-top: 10px;
+}
+.roundtrip_ride_types p:first-child {
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+.roundtrip_ride_types p:last-child {
+    font-size: 15px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+}
+.roundtrip_rides div.form_flex_div2 {
+   width: 15%;
+    /*background: #000000;*/
+    text-transform: capitalize;
+    /*max-height: 100%;
+    line-height: 62px;
+    padding-top: 10px;*/
+}
+.roundtrip_rides div.form_flex_div3
+    width: 80%;
+     /*background: #000000;*/
+    text-transform: capitalize;
+    padding-top: 10px;
+}
+.mid_line {
+   padding-top: 0px !important;
+   margin: 0px;
+   vertical-align: middle;
+}
+.mid_line span {
+   border-left: 1px solid #43A047
+}
+.trip_from {
+    display: flex;
+}
+.trip_from .trip_one, .trip_from .trip_two {
+    width: 50%;
+    padding: 5px;
+}
+/* Round trip form ends here */
+
+/* About us page*/
+.text_page_container {
+  width: 100%;
+  padding: 10px;
+}
+.text_page_container_heading {
+    text-align: center;
+}
+.about_us_para {
+    font-size: 13px;
+    text-transform: none;
+    text-align: justify;
+    font-weight: 600;
+    color: #999999;
+    line-height: 17px;
+}
+.text_page_container h5 {
+    text-transform: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+.about_us_normal_para {
+    font-size: 13px;
+    text-transform: none;
+    text-align: justify;
+    color: #999999;
+    line-height: 17px;
+}
+
+.about_us_list li {
+    font-size: 14px;
+    text-transform: none;
+    text-align: justify;
+    color: #367D39;
+    font-weight: 600;
+}
+.about_us_list_two li {
+    font-size: 14px;
+    text-transform: none;
+    text-align: justify;
+    color: #999999;
+   line-height: 18px;
+}
+hr {
+    border-top: 1px solid #424242 !important;
+}
+/*About us page*/
+/*Feedback section*/
+.feedback_sec {
+    width: 95%;
+    margin: 0 auto;
+}
+.feedback_sec table {
+    width: 100%;
+}
+.feedback_sec table tr td {
+    padding-top: 10px;
+    padding-bottom: 10px; 
+}
+.feedback_form textarea {
+    width:100%;
+}
+.feback_line hr {
+    border-color: red;
+}
+/*feedback section ends here*/

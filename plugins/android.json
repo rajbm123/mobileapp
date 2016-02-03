@@ -1,0 +1,21 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.slimride.demo"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.slimride.demo"
+        },
+        "com.phonegap.plugins.OrientationLock": {
+            "PACKAGE_NAME": "com.slimride.demo"
+        }
+    },
+    "dependent_plugins": {}
+}

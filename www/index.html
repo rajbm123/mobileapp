@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script src="scripts/platformOverrides.js"></script>
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/onsen/js/onsenui.js"></script>
+        <!-- Timepicker and date picker -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/css/material.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-material-datetimepicker.css" />
+       <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+       <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+       <script type="text/javascript" src="js/bootstrap-material-datetimepicker.js"></script>
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+        <!-- CSS dependencies -->
+        <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+        <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-dark-theme.css" />
+        
+
+        <!-- CSP support mode (required for Windows Universal apps) -->
+        <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+
+        <title>SlimRide</title>
+       
+         
+ <script type="text/javascript">
+        
+         var module = ons.bootstrap('my-app', ['onsen']);
+               module.controller('AppController', function($scope) { 
+                        
+
+               });
+               module.controller('PageController', function($scope) {
+
+
+                $scope.swap_form1 = function() {
+
+                                document.getElementById("round_trip_form1").style.display = "none";
+                                document.getElementById("round_trip_form2").style.display = "block";
+                }
+                 $scope.swap_form2 = function() {
+
+                                document.getElementById("round_trip_form1").style.display = "block";
+                                document.getElementById("round_trip_form2").style.display = "none";
+                }
+                $scope.swap_form_train1 = function() {
+
+                               document.getElementById("round_trip_form4").style.display = "block";
+                               document.getElementById("round_trip_form3").style.display = "none";
+                }
+                $scope.swap_form_train2 = function() {
+
+                               document.getElementById("round_trip_form4").style.display = "none";
+                               document.getElementById("round_trip_form3").style.display = "block";
+                }
+
+                $scope.selectDropStations = function(){
+                               document.getElementById("station_list").style.display = "block";
+                               if(document.getElementById('drop_station_only'))
+                                {
+
+                                  $('ul.station_list li.list__item--chevron').each(function(){
+                                    $(this).click(function(){
+                                      document.getElementById('drop_station_only').value = this.innerHTML
+                                      document.getElementById("station_list").style.display = "none";    
+                                    });
+                                  });
+                                  return true;
+                                  
+                                   
+                                }
+                }
+                $scope.selecPickUpStations = function(){
+                               document.getElementById("station_list").style.display = "block";
+                               if(document.getElementById('pickup_station_only'))
+                                {
+
+                                  $('ul.station_list li.list__item--chevron').each(function(){
+                                    $(this).click(function(){
+                                      document.getElementById('pickup_station_only').value = this.innerHTML
+                                      document.getElementById("station_list").style.display = "none";    
+                                    });
+                                  });
+                                }
+                }
+                $scope.selecDropStationsRound = function(){
+                               document.getElementById("station_list").style.display = "block";
+                               if(document.getElementById('train_staion1'))
+                                {
+
+                                  $('ul.station_list li.list__item--chevron').each(function(){
+                                    $(this).click(function(){
+                                      document.getElementById('train_staion1').value = this.innerHTML
+                                      document.getElementById("station_list").style.display = "none";    
+                                    });
+                                  });
+                                }
+                }
+                 $scope.selecPickUpStationsRound = function(){
+                               document.getElementById("station_list").style.display = "block";
+                               if(document.getElementById('train_staion2'))
+                                {
+
+                                  $('ul.station_list li.list__item--chevron').each(function(){
+                                    $(this).click(function(){
+                                      document.getElementById('train_staion2').value = this.innerHTML
+                                      document.getElementById("station_list").style.display = "none";    
+                                    });
+                                  });
+                                }
+                }
+                $scope.selectStar = function(){
+                              $('.Driver_rating').each(function(){
+                                   $(this).click(function(){
+                                        $(this).prevAll().css("color","yellow");
+                                        $(this).nextAll().css("color","white");
+                                        $(this).css("color","yellow");
+                                   });
+                              });
+                }
+
+                 $scope.selectStar();
+
+                
+     
+              }); //******end of PageController****//
+      
+              
+          
+      
+         module.controller('gMap', function($scope) {
+          $scope.maps;
+          $scope.initMap = function() {
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                              center: {lat: 12.927585, lng: 77.627385},
+                              zoom: 15
+                            });
+                              var marker = new google.maps.Marker({
+                                position: {lat: 12.927585, lng: 77.627385},
+                                map: map,
+                                title: 'Hello World!'
+                              });
+                          }
+                          $scope.initMap();
+          });  
+
+       module.controller('dates', function($scope) {
+           $scope.datepic =  function() {
+                                  $('#date,#date1,#date2,#date3,#date4,#date5,#date6,#date7,#date8,#date9').bootstrapMaterialDatePicker({ 
+                                    time : false,
+                                    format : 'DD/MM/YYYY' 
+                                  });
+                                  $.material.init();
+                             }
+                                 $scope.datepic();    
+          
+          $scope.timepic =  function() {
+                      $('#time,#time1,#time2,#time3,#time4,#time5,#time6,#time8,#time9').bootstrapMaterialDatePicker
+                      ({ 
+                        date: false,
+                        format : 'HH:mm' 
+                      });
+                      $.material.init();
+          }         
+          $scope.timepic(); 
+
+       });         
+
+       // app.controller('timer', function($scope) {
+       //      $scope.timepic =  function() {
+       //                          $('#time, #time2, #time3, #time4, #time5, #time6').bootstrapMaterialDatePicker
+       //                          ({ 
+       //                            date: false,
+       //                            format : 'HH:mm' 
+       //                          });
+       //                          $.material.init();
+       //     }         
+       //     $scope.timepic();                
+       // });
+ 
+
+         
+        </script>
+      
+        <style>
+
+
+            .page--menu-page__background {
+                background-color: #1D2C33;
+            }
+
+            .page--menu-page__content {
+                color: white;
+            }
+
+            .menu-close,
+            .menu-close > .toolbar-button {
+                color: #999;
+            }
+
+            .menu-list,
+            .menu-item:first-child,
+            .menu-item:last-child,
+            .menu-item {
+                background-color: transparent;
+                background-image: none !important;
+                border-color: transparent;
+                color: #fff;
+            }
+
+            .menu-item {
+                padding: 0 0 0 20px;
+                line-height: 52px;
+                height: 52px;
+                text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px;
+            }
+
+            .menu-item:active {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .menu-notification {
+                display: inline-block;
+                margin-top: 12px;
+                font-size: 14px;
+                height: 16px;
+                line-height: 16px;
+                min-width: 16px;
+                font-weight: 600;
+            }
+
+            .bottom-menu-list,
+            .bottom-menu-item:first-child,
+            .bottom-menu-item:last-child,
+            .bottom-menu-item {
+                border-color: #ffffff;
+                background-color: #2E8B57;
+                background-image: none !important;
+                color: #fff;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+
+            .bottom-menu-item:active {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+           .airport_drop_form, .airport_pickup_form, .office_drop_form, .office_pickup_form, .railway_drop_form, .railway_pickup_form{
+                width: 95%;
+                margin: 15px auto;
+            }
+            #airport_round_trip_form, #airport_pickup_form, #office_pickup_form, #railway_pickup_form, #railway_round_trip_sec {
+                display: none;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .passngr_selection {
+               -webkit-border-radius: 0px;
+                border-radius: 0px;
+                padding: 0px 8px 0 8px;
+                color: #ADA2A2;
+                font-size: 14px;
+                text-transform: none;
+                font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+               -webkit-font-smoothing: antialiased;
+                font-smoothing: antialiased;
+            }
+           
+
+            .sign_in_sec {
+                width: 90%;
+                margin: 0px auto;
+                position: relative;
+                height: 100%;
+            }
+            .sign_in, .sign_up {
+                position: absolute;
+                width: 100%;
+                bottom: 28%;
+            }
+            .sign_in h1, .sign_up h1 {
+              margin-bottom: 20px;
+              font-weight: 600;
+              font-size: 20px;
+            }
+            .forgot_pass {
+              color: red;
+              text-transform: none;
+            }
+            button.sign_up_sign_in_click {
+              background: #B9261C;
+              border-radius: 0;
+            }
+            p.hav_acc {
+              text-transform: capitalize;
+              color: rgb(255, 255, 255);
+              font-size: 15px;
+              padding-left: 3px;
+            }
+            .back_to_sign_in {
+              color: #ffffff;
+              font-weight: 600;
+              text-decoration: none;
+            }
+
+            .controls {
+              margin-top: 10px;
+              border: 1px solid transparent;
+              border-radius: 2px 0 0 2px;
+              box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              height: 50px;
+              outline: none;
+              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            #pac-input {
+              background-color: #fff;
+              font-family: Roboto;
+              font-size: 15px;
+              font-weight: 300;
+              margin: 10px auto;
+              padding: 0 11px 0 13px;
+              text-overflow: ellipsis;
+              width: 95%;
+              position: absolute;
+              left: 0;
+              right: 0;
+              z-index: 9;
+              border-radius: 0px;
+            }
+
+            #pac-input:focus {
+              border-color: #4d90fe;
+            }
+
+            .pac-container {
+              font-family: Roboto;
+            }
+
+            #type-selector {
+              color: #fff;
+              background-color: #4d90fe;
+              padding: 5px 11px 0px 11px;
+            }
+
+            #type-selector label {
+              font-family: Roboto;
+              font-size: 13px;
+              font-weight: 300;
+            }
+            #available_now_form, #available_now_pickup_form, #available_now_rly_drop, #available_now_rly_pickup {
+              display: none;
+            }
+            #station_list {
+                display: none;
+                position: absolute;
+                width: 100%;
+                height: calc(100% - 43px);
+                background: #242424;
+                margin-top: 43px;
+            }
+            #round_trip_form2, #round_trip_form4 {
+                display: none;
+            }
+        </style>
+
+    </head>
+    <body ng-controller="AppController">
+            <ons-sliding-menu menu-page="menu.html" main-page="page1.html" side="left"
+                    var="menu" type="reveal" max-slide-distance="260px" swipeable="true">
+            </ons-sliding-menu>
+
+                    <ons-template id="menu.html">
+                        <ons-page modifier="menu-page">
+                            <!-- <ons-toolbar modifier="transparent"></ons-toolbar> -->
+                            <div class="user">
+                                <center>
+                                    <img src="img/raju.jpg" class="img-responsive" alt="User">
+                                </center>
+                            </div>
+                            <ons-list class="menu-list">
+
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page1.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-home-outline"></ons-icon>
+                                    Home
+                                </ons-list-item>
+
+                               <!--  <ons-list-item class="menu-item" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
+                                    <ons-icon icon="fa-bookmark"></ons-icon>
+                                    Map
+                                </ons-list-item> -->
+
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page3.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-log-in"></ons-icon>
+                                    Sign In
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page12.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-person-outline"></ons-icon>
+                                    Profile
+                                </ons-list-item>
+<!-- 
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page4.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-person"></ons-icon>
+                                    Sign Up
+                                </ons-list-item> -->
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page6.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-information-outline"></ons-icon>
+                                    About Us
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page7.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-paper-outline"></ons-icon>
+                                    Terms & Conditions
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page8.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-locked-outline"></ons-icon>
+                                    Privacy Policy
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page9.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-chatboxes-outline"></ons-icon>
+                                    Feedback
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page10.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-folder-outline"></ons-icon>
+                                    Trip List
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page11.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-plus-outline"></ons-icon>
+                                    New Request
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page3.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-compose-outline"></ons-icon>
+                                    Testimnonials
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page13.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-ios-help-outline"></ons-icon>
+                                    Faq
+                                </ons-list-item>
+                                <ons-list-item class="menu-item" ng-click="menu.setMainPage('page3.html', {closeMenu: true})">
+                                    <ons-icon icon="ion-log-out"></ons-icon>
+                                    Log Out
+                                </ons-list-item>
+
+                            </ons-list>
+
+                        </ons-page>
+                    </ons-template>
+
+                        <ons-template id="page1.html">
+                            <ons-page>
+                                <ons-toolbar>
+                                    <div class="left">
+                                        <ons-toolbar-button ng-click="menu.toggle()">
+                                        <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                        </ons-toolbar-button>
+                                    </div>
+                                    <div class="center logo">SlimRide</div>
+                                </ons-toolbar>
+                                
+                                 <ons-tabbar class="tab_two">
+                                   <ons-tab page="airport.html" label="Airport Ride" icon="ion-plane" active="true" class="tab_two_btn"></ons-tab>
+                                   <!-- <ons-tab page="comments.html" label="Comments" icon="ion-chatbox-working"></ons-tab> -->
+                                   <ons-tab page="office.html" label="Office Ride" icon="fa-suitcase" class="tab_two_btn"></ons-tab>
+                                   <ons-tab page="railway.html" label="Railway Station Ride" icon="ion-android-train" class="tab_two_btn"></ons-tab>
+                                 </ons-tabbar>
+
+                                 <ons-template id="airport.html">
+                                    <div class="tab-bar tab-bar--top tab-bar--top-border tabbar_one">
+                                      <label class="tab-bar__item tab-bar--top-border__item" onclick="tabsShow()">
+                                        <input type="radio" name="top-tab-bar-b" checked="checked">
+                                        <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                          Airport Drop
+                                        </button>
+                                      </label>
+
+                                      <label class="tab-bar__item tab-bar--top-border__item" id="airport_pickup_tab" onclick="tabsHide()">
+                                        <input type="radio" name="top-tab-bar-b">
+                                        <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                          Airport Pickup
+                                        </button>
+                                      </label>
+                                      <label class="tab-bar__item tab-bar--top-border__item" id="airport_pickup_tab" onclick="tabs3Show()">
+                                        <input type="radio" name="top-tab-bar-b">
+                                        <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                          Round Trip
+                                        </button>
+                                      </label>
+                                    </div>
+                                    <div class="airport_drop_form" id="airport_drop_form">
+                                      <div id="advance_booking">
+                                       <form>
+                                          <div class="form-group" ng-controller="dates">
+                                            <input type="text" class="text-input" id="date" placeholder="Date of Travel" value="">
+                                          </div>  
+                                          <div class="form-group" ng-controller="dates">
+                                            <input type="text" class="text-input" id="time" placeholder="Desirable Airport Reaching Time" value="">
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="passngr_selection">
+                                                  No of Passengers  
+                                                  <div>
+                                                      <label class="radio-button">
+                                                        <input type="radio" name="r" checked="checked" value="1">
+                                                        <div class="radio-button__checkmark"></div>
+                                                        1
+                                                      </label>
+                                                      <label class="radio-button">
+                                                        <input type="radio" name="r" value="2">
+                                                        <div class="radio-button__checkmark"></div>
+                                                        2
+                                                      </label>
+                                                      <label class="radio-button">
+                                                        <input type="radio" name="r" value="3">
+                                                        <div class="radio-button__checkmark"></div>
+                                                        3
+                                                      </label> 
+                                                  </div>
+                                              </div>
+                                              
+                                          </div>
+                                          <div class="form-group">
+                                            <input type="text" class="text-input" placeholder="Pickup Location" value="" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
+                                          </div>
+                                       </form>
+                                    </div>
+                                    <div id="available_now_form">
+                                      
+                                    </div>
+
+                                       <div class="tab-bar avail_now_tab_sec">
+                                         <label class="tab-bar__item" onclick="tabs2Show()">
+                                           <input type="radio" name="tab-bar-c" checked="checked">
+                                           <button class="tab-bar__button advnc_btm">
+                                             <div class="tab-bar__label">Advance Booking</div>
+                                           </button>
+                                         </label>
+
+                                         <label class="tab-bar__item" onclick="tabs2Hide()">
+                                           <input type="radio" name="tab-bar-c">
+                                           <button class="tab-bar__button advnc_btm">
+                                             <div class="tab-bar__label">
+                                             <span>Available Now</span>
+                                             <span>(Next few hours)</span>
+                                             </div>
+                                           </button>
+                                         </label>
+                                       </div>
+
+                                    </div>
+                                    <div class="airport_pickup_form" id="airport_pickup_form">
+                                       <div id="advance_booking_pickup">
+                                       <form>
+                                          <div class="form-group" ng-controller="dates">
+                                            <input type="text" class="text-input" id="date1"placeholder="Date of Travel" value="">
+                                          </div>  
+                                          <div class="form-group" ng-controller="dates">
+                                            <input type="text" class="text-input" id="time1" placeholder="Desirable Airport Leaving Time" value="">
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="passngr_selection">
+                                                  No of Passengers  
+                                                  <div>
+                                                      <label class="radio-button">
+                                                        <input type="radio" name="r" checked="checked" value="1">
+                                                        <div class="radio-button__checkmark"></div>
+                                                        1
+                                                      </label>
+                                                      <label class="radio-button">
+                                                        <input type="radio" name="r" value="2">
+                                                        <div class="radio-button__checkmark"></div>
+                                                        2
+                                                      </label>
+                                                      <label class="radio-button">
+                                                        <input type="radio" name="r" value="3">
+                                                        <div class="radio-button__checkmark"></div>
+                                                        3
+                                                      </label> 
+                                                  </div>
+                                              </div>
+                                              
+                                          </div>
+                                          <div class="form-group">
+                                            <input type="text" class="text-input" placeholder="Drop Location" value="" ng-click="menu.setMainPage('page2.html', {closeMenu: true})">
+                                          </div>
+                                       </form>
+                                       </div>
+                                       <div id="available_now_pickup_form">
+                                         
+                                       </div>
+                                       <div class="tab-bar avail_now_pickup_tab_sec">
+                                         <label class="tab-bar__item" onclick="tabs1Show()">
+                                           <input type="radio" name="tab-bar-d" checked="checked">
+                                           <button class="tab-bar__button advnc__pickup_btm">
+                                             <div class="tab-bar__label">Advance Booking</div>
+                                           </button>
+                                         </label>
+
+                                         <label class="tab-bar__item" onclick="tabs1Hide()">
+                                           <input type="radio" name="tab-bar-d">
+                                           <button class="tab-bar__button advnc__pickup_btm">
+                                             <div class="tab-bar__label">
+                                             <span>Available Now</span>
+                                             <span>(Next few hours)</span>
+                                             </div>
+                                           </button>
+                                         </label>
+
+                                       </div>
+
+                                    </div>
+                                    <div class="airport_round_trip_form" id="airport_round_trip_form">
+                                        <div class="round_trip_main_clock">
+                                           <div id="round_trip_form1" ng-controller="PageController">
+                                               <div class="roundtrip_rides">
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Onward Ride</p>
+                                                       <p>To Airport</p>
+                                                   </div>
+                                                   <div class="form_flex_div2">
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                       <div class="mid_line" ng-click="swap_form1()">
+                                                            <center><ons-icon icon="ion-loop" rotate="90" size="35px" id="swap_icon1"></ons-icon></center>
+                                                       </div>
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                   </div>
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Return Ride</p>
+                                                       <p>From Airport</p>
+                                                   </div>
+                                               </div>
+                                               <div class="trip_from">
+                                                   <div class="trip_one">
+                                                       <form>
+                                                         <div class="form-group" ng-controller="dates">
+                                                             <input type="text" class="text-input" id="date2" placeholder="Date of Travel" value="">
+                                                         </div> 
+                                                         <div class="form-group" ng-controller="dates">
+                                                             <input type="text" class="text-input" id="time2" placeholder="Desirable arrival time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                                   <div class="trip_two">
+                                                       <form>
+                                                         <div class="form-group" ng-controller="dates">
+                                                             <input type="text" class="text-input" id="date3" placeholder="Date of Travel" value="">
+                                                         </div> 
+                                                         <div class="form-group" ng-controller="dates">
+                                                             <input type="text" class="text-input" id="time3" placeholder="Desirable Leaving Time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Drop location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>  
+                                           <div id="round_trip_form2" ng-controller="PageController">
+                                               <div class="roundtrip_rides">
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Onward Ride</p>
+                                                       <p>From Airport</p>
+                                                   </div>
+                                                   <div class="form_flex_div2">
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                       <div class="mid_line" ng-click="swap_form2()">
+                                                            <center><ons-icon icon="ion-loop" rotate="90" size="35px" id="swap_icon2"></ons-icon></center>
+                                                       </div>
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                   </div>
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Return Ride</p>
+                                                       <p>To Airport</p>
+                                                   </div>
+                                               </div>
+                                               <div class="trip_from">
+                                                   <div class="trip_one">
+                                                       <form>
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="date4" placeholder="Date of Travel" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="time4" placeholder="Desirable Leaving Time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Drop Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                                   <div class="trip_two">
+                                                       <form>
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="date5" placeholder="Date of Travel" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="time5" placeholder="Desirable arrival time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>  
+                                        </div>
+                                    </div>
+                                 </ons-template>
+
+                                 <ons-template id="comments.html">
+                                   <ons-toolbar>
+                                     <div class="center">Comments</div>
+                                   </ons-toolbar>
+
+                                   <p style="padding-top: 100px; color: #999; text-align: center">Page Contents-content</p>
+                                 </ons-template>
+
+                                 <ons-template id="office.html">
+                                   <div class="tab-bar tab-bar--top tab-bar--top-border">
+                                     <label class="tab-bar__item tab-bar--top-border__item" onclick="tabsOfficeShow()">
+                                       <input type="radio" name="top-tab-bar-b" checked="checked">
+                                       <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                         Take Trial
+                                       </button>
+                                     </label>
+
+                                     <label class="tab-bar__item tab-bar--top-border__item" id="airport_pickup_tab" onclick="tabsOfficeHide()">
+                                       <input type="radio" name="top-tab-bar-b">
+                                       <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                         Subscription
+                                       </button>
+                                     </label>
+                                   </div>
+
+                                   <div class="office_drop_form" id="office_drop_form">
+                                      <form>
+                                         <div class="form-group" ng-controller="dates">
+                                           <input type="text" class="text-input" id="date6" placeholder="Date of Travel" value="">
+                                         </div>  
+                                         <div class="form-group">
+                                           <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                         </div>
+                                        
+                                         <div class="form-group">
+                                           <input type="text" class="text-input" placeholder="Destination" value="">
+                                         </div>
+                                      </form>
+                                   </div>
+                                   <div class="office_pickup_form" id="office_pickup_form">
+                                      <form>
+                                         <div class="form-group" ng-controller="dates">
+                                           <input type="text" class="text-input" id="date7" placeholder="Date of Travel" value="">
+                                         </div>  
+                                         
+                                         <div class="form-group">
+                                            <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                         </div>
+                                         <div class="form-group">
+                                           <input type="text" class="text-input" placeholder="Destination" value="">
+                                         </div>
+                                      </form>
+                                   </div>
+                                 </ons-template>
+
+                                 <ons-template id="feed.html">
+                                   <p style="padding-top: 100px; color: #999; text-align: center">Page Contents-feed</p>
+                                 </ons-template>
+
+                                 <ons-template id="railway.html">
+                                    <div class="tab-bar tab-bar--top tab-bar--top-border">
+                                      <label class="tab-bar__item tab-bar--top-border__item" onclick="tabsRailwayShow()">
+                                        <input type="radio" name="top-tab-bar-b" checked="checked">
+                                        <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                          RLY Drop
+                                        </button>
+                                      </label>
+
+                                      <label class="tab-bar__item tab-bar--top-border__item" id="airport_pickup_tab" onclick="tabsRailwayHide()">
+                                        <input type="radio" name="top-tab-bar-b">
+                                        <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                          RLY Pickup
+                                        </button>
+                                      </label>
+                                      <label class="tab-bar__item tab-bar--top-border__item" id="airport_pickup_tab" onclick="tabsRailwayRTShow()">
+                                        <input type="radio" name="top-tab-bar-b">
+                                        <button class="tab-bar__button tab-bar--top-border__button airport_tabs">
+                                          Round Trip
+                                        </button>
+                                      </label>
+                                    </div>
+                                    <div class="railway_drop_form" id="railway_drop_form"  ng-controller="PageController">
+                                       <div id="advance_booking_rly_drop">
+                                            <div id="rly_form">
+                                               <form>
+                                                  <div class="form-group station_drop_only" ng-click="selectDropStations()">
+                                                    <input type="text" class="text-input"  id="drop_station_only" placeholder="Select Station" value="" readonly="">
+                                                  </div>
+                                                  <div class="form-group" ng-controller="dates">
+                                                    <input type="text" class="text-input" id="date8" placeholder="Date of Travel" value="">
+                                                  </div>  
+                                                  <div class="form-group" ng-controller="dates">
+                                                    <input type="text" class="text-input" id="time8" placeholder="Desirable Reaching Time" value="">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <div class="passngr_selection">
+                                                          No of Passengers  
+                                                          <div>
+                                                              <label class="radio-button">
+                                                                <input type="radio" name="r" checked="checked" value="1">
+                                                                <div class="radio-button__checkmark"></div>
+                                                                1
+                                                              </label>
+                                                              <label class="radio-button">
+                                                                <input type="radio" name="r" value="2">
+                                                                <div class="radio-button__checkmark"></div>
+                                                                2
+                                                              </label>
+                                                              <label class="radio-button">
+                                                                <input type="radio" name="r" value="3">
+                                                                <div class="radio-button__checkmark"></div>
+                                                                3
+                                                              </label> 
+                                                          </div>
+                                                      </div>
+                                                      
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                                  </div>
+                                               </form>
+                                            </div>
+                                            
+                                       </div>
+                                       <div id="available_now_rly_drop"></div>   
+                                       <div class="tab-bar avail_now_pickup_tab_sec">
+                                         <label class="tab-bar__item" onclick="tabsRailway1Show()">
+                                           <input type="radio" name="tab-bar-e" checked="checked">
+                                           <button class="tab-bar__button advnc__pickup_btm">
+                                             <div class="tab-bar__label">Advance Booking</div>
+                                           </button>
+                                         </label>
+
+                                         <label class="tab-bar__item" onclick="tabsRailway1Hide()">
+                                           <input type="radio" name="tab-bar-e">
+                                           <button class="tab-bar__button advnc__pickup_btm">
+                                             <div class="tab-bar__label">
+                                             <span>Available Now</span>
+                                             <span>(Next few hours)</span>
+                                             </div>
+                                           </button>
+                                         </label>
+
+                                       </div>
+                                    </div>
+                                    <div class="railway_pickup_form" id="railway_pickup_form" ng-controller="PageController">
+                                       <div id="advance_booking_rly_pickup">
+                                          <div id="rly_form_pickup">
+                                               <form>
+                                                  <div class="form-group station_pickup_only">
+                                                    <input type="text" class="text-input"  ng-click="selecPickUpStations()" id="pickup_station_only" placeholder="Select Station" value="" readonly="">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <input type="text" class="text-input" id="date9" placeholder="Date of Travel" value="">
+                                                  </div>  
+                                                  <div class="form-group">
+                                                    <input type="text" class="text-input" id="time9" placeholder="Desirable Leaving Time" value="">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <div class="passngr_selection" onclick="alert('You tapped me!')">
+                                                          No of Passengers  
+                                                          <div>
+                                                              <label class="radio-button">
+                                                                <input type="radio" name="r" checked="checked" value="1">
+                                                                <div class="radio-button__checkmark"></div>
+                                                                1
+                                                              </label>
+                                                              <label class="radio-button">
+                                                                <input type="radio" name="r" value="2">
+                                                                <div class="radio-button__checkmark"></div>
+                                                                2
+                                                              </label>
+                                                              <label class="radio-button">
+                                                                <input type="radio" name="r" value="3">
+                                                                <div class="radio-button__checkmark"></div>
+                                                                3
+                                                              </label> 
+                                                          </div>
+                                                      </div> 
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <input type="text" class="text-input" placeholder="Drop Location" value="">
+                                                  </div>
+                                               </form>
+                                            </div>
+                                       </div>
+                                       <div id="available_now_rly_pickup"></div>   
+                                       <div class="tab-bar avail_now_pickup_tab_sec">
+                                         <label class="tab-bar__item" onclick="tabsRailway2Show()">
+                                           <input type="radio" name="tab-bar-f" checked="checked">
+                                           <button class="tab-bar__button advnc__pickup_btm">
+                                             <div class="tab-bar__label">Advance Booking</div>
+                                           </button>
+                                         </label>
+
+                                         <label class="tab-bar__item" onclick="tabsRailway2Hide()">
+                                           <input type="radio" name="tab-bar-f">
+                                           <button class="tab-bar__button advnc__pickup_btm">
+                                             <div class="tab-bar__label">
+                                             <span>Available Now</span>
+                                             <span>(Next few hours)</span>
+                                             </div>
+                                           </button>
+                                         </label>
+
+                                       </div>
+                                       
+                                    </div>
+                                    <div id="railway_round_trip_sec">
+                                        <div class="round_trip_main_clock">
+                                           <div id="round_trip_form3" ng-controller="PageController">
+                                               <div class="roundtrip_rides">
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Onward Ride</p>
+                                                       <p>To Station</p>
+                                                   </div>
+                                                   <div class="form_flex_div2">
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                       <div class="mid_line" ng-click="swap_form_train1()">
+                                                            <center><ons-icon icon="ion-loop" rotate="90" size="35px" id="swap_icon3"></ons-icon></center>
+                                                       </div>
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                   </div>
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Return Ride</p>
+                                                       <p>From Station</p>
+                                                   </div>
+                                               </div>
+                                               <div class="trip_from" ng-controller="PageController">
+                                                   <div class="trip_one">
+                                                       <form>
+                                                         <div class="form-group to_station1">
+                                                             <input type="text" class="text-input" ng-click="selecDropStationsRound()" id="train_staion1" placeholder="Select Station" value="" readonly="">
+                                                         </div> 
+                                                         <div class="form-group" ng-controller="dates">
+                                                           <input type="text" class="text-input" id="date" placeholder="Date of Travel" value="">
+                                                         </div>  
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="time" placeholder="Desirable Arrival Time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                                   <div class="trip_two" ng-controller="PageController">
+                                                       <form>
+                                                         <div class="form-group from_station1">
+                                                             <input type="text" class="text-input" ng-click="selecPickUpStationsRound()" id="train_staion2" placeholder="Select Station" value="" readonly="">
+                                                         </div> 
+                                                         <div class="form-group" ng-controller="dates">
+                                                           <input type="text" class="text-input" id="date" placeholder="Date of Travel" value="">
+                                                         </div>  
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="time" placeholder="Desirable Leaving Time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Drop Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>  
+                                           <div id="round_trip_form4" ng-controller="PageController">
+                                               <div class="roundtrip_rides">
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Onward Ride</p>
+                                                       <p>From Station</p>
+                                                   </div>
+                                                   <div class="form_flex_div2">
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                       <div class="mid_line" ng-click="swap_form_train2()">
+                                                            <center><ons-icon icon="ion-loop" rotate="90" size="35px" id="swap_icon4"></ons-icon></center>
+                                                       </div>
+                                                       <div class="mid_line">
+                                                           <center><span></span></center>
+                                                       </div>
+                                                   </div>
+                                                   <div class="roundtrip_ride_types form_flex_div1">
+                                                       <p>Return Ride</p>
+                                                       <p>To Station</p>
+                                                   </div>
+                                               </div>
+                                               <div class="trip_from">
+                                                   <div class="trip_one">
+                                                       <form>
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Select Station" value="" readonly="">
+                                                         </div> 
+                                                         <div class="form-group" ng-controller="dates">
+                                                           <input type="text" class="text-input" id="date" placeholder="Date of Travel" value="">
+                                                         </div>  
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="time" placeholder="Desirable Leaving Time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Drop Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                                   <div class="trip_two">
+                                                       <form>
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Select Station" value="" readonly="">
+                                                         </div> 
+                                                         <div class="form-group" ng-controller="dates">
+                                                           <input type="text" class="text-input" id="date" placeholder="Date of Travel" value="">
+                                                         </div>  
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" id="time" placeholder="Desirable Arrival Time" value="">
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <div class="passngr_selection">
+                                                                 No of Passengers  
+                                                                 <div>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" checked="checked" value="1">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       1
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="2">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       2
+                                                                     </label>
+                                                                     <label class="radio-button">
+                                                                       <input type="radio" name="t" value="3">
+                                                                       <div class="radio-button__checkmark"></div>
+                                                                       3
+                                                                     </label> 
+                                                                 </div>
+                                                             </div>
+                                                         </div> 
+                                                         <div class="form-group">
+                                                             <input type="text" class="text-input" placeholder="Pickup Location" value="">
+                                                         </div> 
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>  
+                                        </div>
+                                    </div>
+                                 </ons-template>
+
+                            </ons-page>   
+                        </ons-template>
+                        <ons-template id="page2.html">
+                            <ons-page >
+                               <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                <button class="button button--large--cta map_btn">Select Origin</button>
+                                <div id="map" style="width:100%;height:100%"  ng-controller="gMap">
+                                </div>
+                            </ons-page>
+                        </ons-template>
+
+                        <ons-template id="page3.html">
+                            <ons-page ng-controller="PageController">
+                                <ons-toolbar>
+                                    <div class="left">
+                                        <ons-toolbar-button ng-click="menu.toggle()">
+                                        <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                        </ons-toolbar-button>
+                                    </div>
+                                    <div class="center logo">SLIMRIDE</div>
+                                </ons-toolbar>
+                                <div class="sign_in_sec">
+                                  <div class="sign_in">
+                                    <form>
+                                      <div class="form-group">
+                                        <input type="email" class="text-input"
+                                          placeholder="Enter Email" value="">
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="password" class="text-input"
+                                          placeholder="Enter Password" value="">
+                                      </div>
+                                      <div class="form-group">
+                                        <button type="submit" class="button button--large--cta registration_btn">Sign in</button>
+                                      </div>
+                                      <!-- <div class="form-group">
+                                        <button type="submit" class="button button--large--cta reset_btn"  ng-click="menu.setMainPage('page5.html', {closeMenu: true})">Reset Password</button>
+                                      </div> -->
+                                      <!-- <div class="form-group">
+                                        <a href="#" class="forgot_pass" ng-click="menu.setMainPage('page5.html', {closeMenu: true})">Forgot your password?</a>
+                                        <p class="hav_acc">Don't have account?</p>
+                                      </div> -->
+                                      <div class="form-group">
+                                       <button type="button" class="button button--large--cta sign_up_sign_in_click" ng-click="menu.setMainPage('page4.html', {closeMenu: true})">Sign Up</button>
+                                       <!--  <a href="#" class="sign_up_sign_in_click" ng-click="menu.setMainPage('page4.html', {closeMenu: true})">Sign Up</a> -->
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page4.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">SLIMRIDE</div>
+                              </ons-toolbar>
+                              
+                              <div class="sign_in_sec">
+                                <div class="sign_up">
+                                  <form>
+                                    <div class="form-group">
+                                      <input type="email" class="text-input"
+                                        placeholder="Enter Email" value="">
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" class="text-input"
+                                        placeholder="Enter Name" value="">
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" class="text-input"
+                                        placeholder="Enter Mobile No" value="">
+                                        <!-- <span class="pass_sent_mob">Password will be sent to your mobile</span> -->
+                                    </div>
+                                   <div class="form-group">
+                                      <button type="submit" class="button button--large--cta sign_up_sign_in_click">Sign Up</button>
+                                    </div>
+                                    <div class="form-group">
+                                      <!-- <p class="hav_acc">Already have an account? <a href="#" class="sign_up_sign_in_click" ng-click="menu.setMainPage('page3.html', {closeMenu: true})"> Sign In</a></p> -->
+                                       <button type="submit" class="button button--large--cta registration_btn" ng-click="menu.setMainPage('page3.html', {closeMenu: true})">Sign In</button>
+
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>     
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page5.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">SLIMRIDE</div>
+                              </ons-toolbar>
+                              
+                              <div class="sign_in_sec">
+                                <div class="sign_up">
+                                  <form>
+                                    <div class="form-group">
+                                      <input type="email" class="text-input"
+                                        placeholder="Enter Email/phone number" value="">
+                                    </div>
+                                    <div class="form-group">
+                                      <button type="submit" class="button button--large--cta registration_btn" ng-click="menu.setMainPage('page3.html', {closeMenu: true})">Reset Password</button>
+                                    </div>
+                                    <!-- <center><a href="#" class="back_to_sign_in" ng-click="menu.setMainPage('page4.html', {closeMenu: true})">Back To Sign In</a></center> -->
+                                  </form>
+                                </div>
+                              </div>              
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page6.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">SLIMRIDE</div>
+                              </ons-toolbar>
+                              <div class="text_page_container">
+                                  <h4 class="text_page_container_heading"><b>ABOUT US</b></h4>
+                                  <hr/>
+                                  <p class="about_us_para">SlimRide is a unique cab-sharing solution designed with the aim of providing convenient but low cost road travel alternatives to people. We intend to bring in all the benefits of ridesharing to road travel as well as plug in the gaps in existing cab industry. We kick off our operations in Bangalore by providing airport transfer services. We currently provide airport pickup and airport drop services at very low fares compared to that for normal cabs.</p>
+                                  <h5>Why Rideshare or Cab-share?</h5>
+                                  <p class="about_us_normal_para">Ridesharing is an obvious answer to reduce the cost of travel. Further, as the roads remain the same but our population continues to grow, we are bound to see continuous increase in number of vehicles on road which will lead to worsening road traffic, more environmental degradation, and faster fossil fuel depletion. In such a situation, ridesharing or carpooling becomes a no-brainer solution that not only saves people significant amount of money but also alleviates those issues. In essence, one should rideshare or cab-share:</p>
+                                  <ul class="about_us_list">
+                                      <li>To reduce the cost of travel</li>
+                                      <li>To protect the environment</li>
+                                      <li>To save non-renewable fuel</li>
+                                      <li>To reduce traffic and in turn reduce travel time</li>
+                                  </ul>
+                                  <p class="about_us_normal_para">Despite several benefits ridesharing or carpooling has remained just an ideal solution in theory and a very limited alternative in practice. We believe that the reasons for the same are:</p>
+                                  <ul class="about_us_list_two">
+                                      <li>People are often unable to find co-travelers or shared rides</li>
+                                      <li>People have to wait for days to find co-travelers</li>
+                                      <li>People see too many hassles in the existing options where they have to i) post a request, ii) interact with co-travelers, iii) decide on time, route etc, and iv) split the cost or fare</li>
+                                      <li>People have concerns on traveling with strangers</li>
+                                  </ul>
+                                  <p class="about_us_normal_para">Our cab-sharing proposition aims to resolve all the issues and create a strong culture of ridesharing in practicality. Our goal at SlimRide is to make ridesharing the preferred mode of transportation for most individuals on most occasions. We are trying to remove the bottlenecks existing in the ridesharing industry currently.</p>
+                                  
+                              </div>
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page7.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">SLIMRIDE</div>
+                              </ons-toolbar>
+                              <div class="text_page_container">
+                                  <h4 class="text_page_container_heading"><b>TERMS OF USE</b></h4>
+                                  <hr/>
+                                  <h5>1. Acceptance of Terms of Use</h5>
+                                  <p class="about_us_normal_para">This website (www.slimride.com) is owned and operated by Innohub Travels Private Limited. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions (“Terms of Use”), which together with our Privacy Policy (accessible at Privacy Policy) govern the relationship you have with Innohub Travels Private Limited in relation to your use of the website and the services at www.slimride.com (the “Website” or “SlimRide”) whether through a computer, a mobile phone or any other electronic device.</p>
+                                  <p class="about_us_normal_para">The term “SlimRide” or “us” or “we” refers to the owner of the Website having registered office at Innohub Travels Private Limited, 3rd Floor, No. 231, 37th Cross, 11th Main Road, 4th ‘T’ Block, Jayanagar, Bangalore-560041, Karnataka, India. Our company is registered at Bangalore and the Corporate Identification Number (CIN) is U63040KA2014PTC077539.</p>
+                                  <p class="about_us_normal_para">The term “you” or “User” in this document refers to the user or viewer of this Website and/or the facilities and services made available through this Website. If you do not wish to agree to the outlined terms and conditions please refrain from using this Website and our services.</p>
+                                  <p class="about_us_normal_para">Please read this agreement carefully. By browsing, accessing or using this Website or by using any facility or service made available through or on this Website, you are unconditionally agreeing to and accepting the Terms and Conditions and Privacy Policy (all of which are called the “Agreement”). This agreement is made between you and us.</p>
+                                  <p class="about_us_normal_para">We reserve the right to amend the terms and conditions and privacy policy at any time. All amendments will be posted online on this Website. We suggest you to re-read the Terms of Use and Privacy Policy from time to time so that you stay informed of any such amendments. If we make changes to our Terms of Use and Privacy Policy and you continue to use our Website, you are implicitly agreeing to the amended Terms of Use and Privacy Policy. Unless specified otherwise, any such amendments shall be effective immediately upon SlimRide’s posting thereof.</p>
+
+                                  <h5>2. Use of Our Service 2.1 User(s) Eligibility</h5>
+                                  <p class="about_us_normal_para">User(s) means any individual or business entity/organization that legally operates in India or in other countries and is competent and eligible to enter into legally binding agreement and have the requisite authority to bind the other party to this agreement. Our Services are available only to those individuals or business entities/organizations who can form legally binding contracts under the applicable law. Therefore, (i) User(s) must not be a minor as per Indian Law which means that User(s) must be at least 18 years of age to be eligible to use our Services (ii) User(s) must not be disabled by any law from entering into a contract.</p>
+
+                                  <h5>2.2 Usage of Service</h5>
+                                  <p class="about_us_normal_para">SlimRide continuously strives to provide a high quality service to its users. Any user using our services acknowledges and agrees that SlimRide has exclusive right to modify, stop, or change the form of its service from time to time (temporarily or permanently) to the user. User(s) acknowledges and agrees that SlimRide can at anytime terminate his or her user account or login route or he or she may be prevented from accessing the services on SlimRide’s sole discretion. User(s) acknowledges and agrees that SlimRide may at anytime terminate or restrict use of service if it hinders SlimRide to provide its services to other user(s) or to carry its operations or due to non-payment.</p>
+                                  <p class="about_us_normal_para">User(s) agrees to use SlimRide solely for personal purposes only, and shall not use SlimRide for any commercial or profit making purposes. User(s) agrees that he or she will not use the services in any such manner which is inconsistent with any applicable laws and regulations. User(s) will not use the Website in any manner to perform any illegal or illegitimate activities and the user(s) shall not aid or encourage any third party to carry on any illegal or illegitimate activities through this Website or its services.</p>
+
+                                  <h5>2.3 Access to Services</h5>
+                                  <p class="about_us_normal_para">In order to avail of and use the services provided by SlimRide Users will have to provide information about themselves as required by us for registration process needed for use of the services. User(s) agrees to provide us with complete, correct, accurate information and to maintain and update this information as required to keep it current, complete, and accurate. If a user provides any information that is untrue, inaccurate, not current, or incomplete or we have reasonable grounds to suspect that such information is untrue, inaccurate, not current or incomplete, SlimRide has the right to indefinitely suspend or terminate the user’s membership without assigning any reasons and refuse to provide the user with access to SlimRide and its services. SlimRide can share customer/member/user information with employees and agents, with any company which the user acquires or acquires the user, to the Government or law enforcement agencies (if officially requested or required by order, Notification, Stature of the Court) and with anyone else, with the consent of the user.</p>
+
+                                  <h5>2.4 Payment Policy</h5>
+                                  <p class="about_us_normal_para">Currently SlimRide only provide the option of payment during the trip. Customers are requested to hand over the full fare amount to our drivers soon after boarding the vehicle.</p>
+
+                                  <h5>2.5 About Reservations</h5>
+                                  <p class="about_us_normal_para">SlimRide currently provides only shared ride services to and from airport. Reservations are mandatory for availing the services offered by SlimRide. All reservations are valid for the time and date specified. SlimRide is not responsible for unused reservation or costs incurred as a result of customer error. Changes in pickup or drop location, date of travel, pick up or drop timing etc. in already confirmed booking are subject to availability and may incur additional charges. Reservations are currently available only through the Website which can be accessed through a computer, laptop or mobile devices. Users can search for availability of rides by entering few details on the website. The Website displays an availability or unavailability screen depending on the rides we have. The availability page shows few details regarding the available ride corresponding to the search made by the User. By booking the ride and confirming it, a User agrees to the Terms and Conditions regarding each of those details mentioned in this document.</p>
+
+                                  <h5>2.5.1 Shared Ride for Airport Drop</h5>
+                                  <p class="about_us_normal_para">Reservations are required for service to airport. SlimRide pools customers going from various locations in Bangalore to Airport. Depending on a customer’s location and other information provided, SlimRide will offer a ride if available. Customers who have confirmed bookings with us will be pooled together and taken to the airport. Currently we will pool up to 3 customers together. SlimRide tries to pool locations and take routes in the most optimal fashion. SlimRide completely reserves the right to pool locations and choose routes and customers will have no say in this regard.</p>
+
+                                  <h5>Preferred Airport Arrival Time</h5>
+                                  <p class="about_us_normal_para">SlimRide asks customers to search for ride availability based on their Preferred Airport Arrival Time. Preferred Airport Arrival Time is the time when a customer wants to arrive at the airport. Based on the Preferred Airport Arrival Time request made on the website by a User, SlimRide shows a time slot for Expected Airport Arrival Time during which the User will be dropped off at the airport and a corresponding Pickup Time if a ride is available. As long as a customer using SlimRide service arrives at the airport by the Preferred Airport Arrival Time request made, SlimRide will not be liable for the customer missing his or her flight. If a customer availing service of SlimRide is dropped off at the airport later than the Preferred Airport Arrival Time requested and misses his or her flight, SlimRide will refund the full flight fare upon furnishing of all necessary documents, provided the Preferred Airport Arrival Time selected by the customer has at least 20 minutes margin over the counter closing time for the respective scheduled flight. Customers are suggested to choose their Preferred Airport Arrival Times with sufficient margin over the counter closing times. SlimRide will not be responsible for a customer missing a flight due to incorrect or incomplete information about counter closing time for his or her respective scheduled flight or airline or airport.</p>
+
+                                  <h5>Expected Airport Arrival Time</h5>
+                                  <p class="about_us_normal_para">Expected Airport Arrival Time is the time slot during which we expect to drop off a customer at the airport for the respective reservation. We expect to arrive at the airport during the Expected Airport Arrival Time in most cases. However, SlimRide will not be responsible for a customer missing his or her flight as long as we drop the customer by his or her Preferred Airport Arrival Time requested.</p>
+
+                                  <h5>Pickup Time</h5>
+                                  <p class="about_us_normal_para">The pickup time mentioned to each customer on the availability page is the time at which the customer will be picked up by SlimRide drivers. Pickup times have been carefully arrived at considering typical road traffic, Expected Airport Arrival Times, and other factors. Pickup time is the time by which customers should be ready to board SlimRide vehicles. Customers are recommended to be ready at their respective locations 10-15 minutes before their pickup times. SlimRide vehicles will wait for a maximum of 10 minutes after the pickup time. SlimRide drivers may leave a customer without picking him or her up if the customer hasn’t boarded the vehicle after 10 minutes of the pickup time. Customers are expected to be available on their phones to receive calls or messages. If a customer misses calls from our drivers or our customer support staff and is not able to board our vehicle in the allotted time, we will not be liable for leaving the customer after a 10 minute wait above the pickup time. SlimRide will not be responsible for a customer missing his or her flight or incurring any other losses due him or her being abandoned by a SlimRide driver after waiting for 10 minutes over and above the pickup time mentioned.</p>
+
+                                  <h5>2.5.2 Shared Ride for Airport Pickup</h5>
+                                  <p class="about_us_normal_para">Reservations are required for service from airport. SlimRide pools customers at airport coming to Bangalore. Currently we pool up to 3 customers together and drop them off at different locations in Bangalore city. The routes taken and the dropping order of customers are completely decided by SlimRide and no customer will have any say in this regard. Please refrain from asking the driver to take any particular route or go to any particular location first.</p>
+
+                                  <h5>Flight Arrival Time</h5>
+                                  <p class="about_us_normal_para">The Website asks customers to provide their flight arrival times and based on that pickup times for available rides are suggested. Customers are requested to enter their correct flight arrival time at Bangalore airport and they will be solely responsible for any issue arising due to furnishing incorrect flight arrival time. If an arriving flight for a customer is delayed, SlimRide will make all efforts to accommodate the customer in some other SlimRide vehicle but we do not guarantee a confirmed ride or pickup time in such situations.</p>
+
+                                  <h5>Pickup Time</h5>
+                                  <p class="about_us_normal_para">The pickup time for pickup from airport is the time at which customers will be picked up. An additional 15 minutes waiting over the allotted pick up time may result. We request the customers to bear with us in case your pickup gets extended beyond the 15 minutes over the allotted pickup time.</p>
+
+                                  <h5>2.6 Refund/Cancellation Policy</h5>
+                                  <p class="about_us_normal_para">The refund policy for cancellations or non-use of services will be as mentioned below:</p>
+
+                                  <h5>Cancellations</h5>
+                                  <ul class="about_us_list_two">
+                                      <li>For cancellations done by customers more than 12 hours before the pickup time, 20% of the fare amount will be deducted and the remaining 80% will be refunded to customers.</li>
+                                      <li>For cancellations done by customers between 6 hours to 12 hours before the pickup time, 50% of the fare amount will be deducted and the remaining 50% will be refunded to customers.</li>
+                                      <li>For cancellations done by customers between 2 hours to 6 hours before the pickup time, 80% of the fare amount will be deducted and the remaining 20% will be refunded to customers.</li>
+                                      <li>No refund will be provided for cancellations done by customers within 2 hours of the pickup time.</li>
+                                      <li>For any cancellation done by SlimRide, full fare will be refunded to customers.</li>
+                                  </ul>
+
+                                  <h5>Non-use</h5>
+                                  <ul class="about_us_list_two">
+                                      <li>If customers are not able to use our service at the last moment because of flight cancellation or delay, no refund will be provided.</li>
+                                      <li>If customers inform us in advance about cancelling a booking due to flight delay or flight cancellation, refunds will be provided as per cancellation rules mentioned above.</li>
+                                      <li>If customers miss our service due to incorrect details entered while booking, no refund will be provided.</li>
+                                      <li>If our driver abandons a customer who doesn’t board the vehicle as per our timing rules, no refund will be provided.</li>
+                                      <li>If a customer misses our service because of not attending to or answering our calls or messages, no refund will be provided.</li>
+                                      <li>If a customer is abandoned midway during the trip because of inappropriate conduct or misbehaving with other customers, no refund will be provided.</li>
+                                  </ul>
+
+                                  <h5>Modification in Booking</h5>
+                                  <ul class="about_us_list_two">
+                                      <li>Customer requests for modification in bookings will be entertained on case by case basis depending on the request made and the availability of rides.</li>
+                                      <li>For correction in customer’s personal details which include Name, Phone Number, and Email, no penalty will be charged but customers may be asked to furnish documents supporting verification of the new details.</li>
+                                      <li>For modification in customer’s trip details which include Preferred Airport Arrival Time, Pick up and Drop Locations, Date, Pickup and Drop Addresses, Pickup Time, Flight Arrival Time, a charge of Rs. 100 will be levied if the request is made at least 4 hours before the pickup time. However, accepting any modification request is subject to the available rides we have. We may deny modification request if we cannot pool you with any other customer.</li>
+
+                                  </ul>
+
+                                  <h5>Transfer of Booking</h5>
+                                  <ul class="about_us_list_two">
+                                      <li>Booking once made by a customer is not transferable to any other person in any scenario. SlimRide will not entertain any request for transferring a booking to another person.</li>
+                                      <li>If found out that a customer using our service is not the one in whose name the booking has been made, the customer will be immediately asked to leave our vehicle and he or she will be liable to further action. In such scenarios, both the actual person traveling with us and the person in whose name the booking was made will be liable for any action required by the law.</li>
+                                      <li>Our drivers may ask for personal identification at the start of, during, or after the trip. By using our service you agree to furnish personal identification documents such as passport, driving license, aadhar card etc if asked before, after or during the trip.</li>
+                                  </ul>
+                                  <h5>2.7 General Points Fare</h5>
+                                  <p class="about_us_normal_para">The fares mentioned currently for each ride are introductory fares which may be changed at any time by SlimRide. All the fares are flat fares which include all the taxes, tolls etc. You don’t need to pay anything extra to the driver above your mentioned fare. In case there has to be charged any additional amount, you will be informed in advance. For payment option of paying during the trip, you are requested to kindly hand over the fare amount to our drivers just after boarding the vehicle.</p>
+                                  <h5>Incorrect Details</h5>
+                                  <p class="about_us_normal_para">Customers are requested to enter their complete and correct details while making a booking. SlimRide will not be responsible for any losses or issues resulting from incorrect information furnished by customers.</p>
+                                  <h5>During the Trip</h5>
+                                  <p class="about_us_normal_para">During the trip customers are requested not to misbehave or act inappropriately with their co-passengers and the driver. Customers are also requested not to ask the driver to stop the vehicle or take diversions for any personal work such as picking up or buying something or withdrawing money from ATM etc. SlimRide reserves the right to entertain any such request. Further, SlimRide may abandon one or more customer midway during a trip if he or she is found creating discomfort or inconvenience to fellow passengers.</p>
+                                  <h5>Luggage</h5>
+                                  <p class="about_us_normal_para">Luggage allowed for each customer is a medium sized trolley bag or suitcase and a backpack. If customers bring extra luggage during boarding, they will be charged at Rs. 50 per luggage for normal size laptop backpacks and Rs. 100 per luggage for trolleys, suitcases etc.</p>
+                                  <h5>3. Intellectual Property and Related Rights 3.1 Content on Website</h5>
+                                  <p class="about_us_normal_para">You understand that all information (such as data files, written text, computer software, or images) which you may access to as part of, or through your use of the Service is the sole responsibility of the person from which such content originated. You should be aware that the content presented to you as part of the Service on our Website, including but not limited to advertisements and promotional material of SlimRide or other companies, is protected by intellectual property rights which are owned by SlimRide, or the sponsors or advertisers who provide that content to SlimRide (or by other persons or companies on their behalf). You cannot modify, rent, lease, loan, sell, distribute, copy or create derivative work based on this content (either in whole or in part) unless permitted by SlimRide or by the owners of that content, in a separate agreement.</p>
+                                  <p class="about_us_normal_para">Any content being uploaded or shared by you on our Website or using the medium of our service may be pre-screened, reviewed, flagged, filtered, modified or simply refused or removed. Any spam or pornographic material and/or any illegal content will be immediately deleted and we reserve the right to take appropriate legal action. You agree that you are solely responsible for (and that SlimRide has no responsibility to you or to any third party for) any content that you create, transmit or display using the Service or for the consequences of your actions (including any loss or damage which SlimRide may suffer) by doing so. You understand that by using the service you may be exposed to content of other users that you may find offensive, indecent or objectionable and that, in this respect, you use the Service at your own risk. SlimRide shall not be made responsible for any repugnant content circulated on its Service by other users. On noticing any such content, it is your duty to bring it to the attention of SlimRide officials immediately, who will take due care to delete the service.</p>
+
+                                  <h5>3.2 Intellectual Property Rights</h5>
+                                  <p class="about_us_normal_para">Everything located on or in this Website is the exclusive property of SlimRide or used with express permission of the copyright and/or trademark owner or advertiser. Any violation under this head may result in a copyright, trademark or other intellectual property right infringement that may subject User to civil and/or criminal penalties. This website contains copyrighted material, trademarks, and other proprietary information including, but not limited to, text, software, photos, videos, graphics, music, sound and the entire content of SlimRide is protected by copyright as a collective work under Indian copyright laws. User may not modify, publish, transmit, participate in transfer or sale, create derivative works, or in any way exploit any of the content, in whole or in part. User may download/print/save copyrighted material for User’s personal use only. Except as otherwise expressly stated under copyright law, no copying, redistribution, retransmission, publication or commercial exploitation of downloaded material without the express permission of SlimRide and the copyright owner is permitted. If copying, redistribution or publication of copyrighted material is permitted, no changes in or deletion of author attribution, trademark legend or copyright notice shall be made. Users acknowledge that they do not acquire any ownership rights by downloading copyrighted material. A User shall not upload post or otherwise make available on this Website any material protected by copyright, trademark or other proprietary right without the express permission of the owner of the copyright, trademark or other proprietary right. SlimRide does not have an express burden or responsibility to provide User with indications, markings or anything else that may aid User in determining whether the material in question is copyrighted or trademarked. Users shall be solely liable for any damage resulting from infringement of copyright, trademarks, proprietary rights or any other harm resulting from such a submission. User hereby grants SlimRide to edit, copy, publish, and distribute any material made available on this Website by User.</p>
+                              </div>    
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page8.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">SLIMRIDE</div>
+                              </ons-toolbar>
+                              <div class="text_page_container">
+                                  <h4 class="text_page_container_heading"><b>PRIVACY POLICY</b></h4>
+                                  <hr/>
+                                  <p class="about_us_normal_para">This privacy policy sets out how SlimRide uses and protects any information that you give SlimRide when you use this Website.SlimRide is committed to ensuring that your privacy is protected. Any information which you provide when using this Website will only be used in accordance with this privacy statement. SlimRide may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are aware of any changes. This poicy is effective from 18th May 2015.</p>
+                                  <h5>Collection of information</h5>
+                                  <p class="about_us_normal_para">We may collect and store your personal information which you provide from time to time when you use our Website. The information provided by you shall include but not limited to your name, email ID, address, phone number, job details, picture, copy of ID card. You consent to us using the information provided by you to create user account which you can use to avail our services. You agree that the information provided by you when using our Website will be correct, complete, and up to date and you will be solely responsible for the information provided by you. You agree that SlimRide and other people in public may rely on your information as correct, complete and up to date. You acknowledge that if the information provided by you is fake, untrue, incorrect, misleading, incomplete, inaccurate or not up to date in any respect, you will be solely responsible for it and we reserve the right to terminate this agreement and your use of our services.We may also collect non personal information about your visit to our Website which may include but not limited to your domain name, webpage or complete URL from which you entered our Website, your IP address and how much time you spend on our pages etc. In order to operate the Website and provide you with information on products and services that may be of interest to you, we may collect profile information (i.e information that could be used to contact you such as your name, postal address, phone number, email ID, job details etc.), financial information (e.g passwords and credit card numbers), demographic information (e.g zip code, hometown, gender, and age etc.)</p>
+                                  <h5>Use of information</h5>
+                                  <p class="about_us_normal_para">We use the information we collect or receive to communicate directly with you and to provide services to you. We may use information provided by you to efficiently carry operations of the website. We also use your information to send you Service-related emails (e.g account verification, purchase and billing confirmations and reminders, changes/updates to the features of the Service, technical and security notices etc.). To operate the website including processing of your account, transactions, payments and other activities, we may share your personal information with our agents, representatives, contractors, and service providers so they can provide us with support services such as email origination, receipt or support services, customer relationship management services, and other fulfillment. We require these entities not to use your information for any other purpose. We may call you, email you, or send messages in order to provide service.</p>
+                                  <h5>Storage of Information</h5>
+                                  <p class="about_us_normal_para">We store your information and data in our database. We reserve the right to retain your personal data and information for indefinite period even after termination of your account. This is done for security reasons and other future purposes.</p>
+                                  <h5>Sharing your information</h5>
+                                  <p class="about_us_normal_para">We may share your personal information with our other corporate entities and affiliates to help detect and prevent identity theft, fraud, and other potentially illegal acts; correlate related or multiple accounts to prevent misuse of our services; and to facilitate joint or co-branded services that you request where such services are provided by more than one corporate entity. Those entities and affiliates may not market to you as a result of such sharing unless you explicitly opt-in.We may disclose personal information if required to do so by law or in the good faith belief that such disclosure is reasonably necessary to respond to court orders, or other legal process.</p>
+                                  <p class="about_us_normal_para">We may disclose personal information to law enforcement offices, third party right owners or others in the good faith belief that such disclosure is reasonably necessary to: enforce our Terms and Conditions and Privacy Policy; respond to claims that an advertisement, posting or other content violates the rights of a third party; or protect the rights, property or personal safety of our users or the general public.</p>
+                                  <p class="about_us_normal_para">We and our affiliates will share/sell some or all of your personal information with another business entity should we (or our assets) plan to merge with or be acquired by that business entity, or re-organization, amalgamation, restructuring of business. If such a transaction occurs that other business entity (or the new combined entity) will be required to follow this privacy policy with respect to your personal information.</p>
+                                  <h5>Third Party Sites and Services</h5>
+                                  <p class="about_us_normal_para">The website may contain links to third party websites, products, and services such as social networking sites and third parties who may offer additional products and services through the site. The third parties use of the data they collect will be governed by the third parties’ privacy practices. Please review these before providing any personal information to any third party.</p>
+                                  <h5>Passwords and Account Security</h5>
+                                  <p class="about_us_normal_para">You agree and understand that you are responsible to SlimRide and to third parties for maintaining the confidentiality of passwords associated with any account you use to access the Service. You will be solely responsible for all activities that occur under your account. SlimRide will take due care to ensure confidentiality of your credentials. You agree and acknowledge that in the very unlikely event of your credentials becoming known to a third party on account of an intrusion into SlimRides’s database, SlimRide shall not be made liable for resulting damages. If you become aware of any unauthorized use of your password or of your account, you agree to notify the concerned official at SlimRide immediately.</p>
+                              </div>
+                            </ons-page>
+                        </ons-template>
+                       
+                        <ons-template id="page9.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">Slimride</div>
+                              </ons-toolbar>
+
+                              
+                              <div class="feedback_sec">
+                                <center><h4>Feedback</h4></center>
+                                <table>
+                                  <tr>
+                                    <td>Driver behaviour</td>
+                                    <td>
+                                      <div>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Car quality</td>
+                                    <td>
+                                      <div>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Total service quality</td>
+                                    <td>
+                                      <div>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                        <span class="Driver_rating"><ons-icon icon="ion-ios-star" class="rate_icon"></ons-icon></span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </table>
+                                <div class="feback_line">
+                                  <hr/>
+                                </div>
+                                <div class="feedback_form">
+                                  <form>
+                                    <div class="form-group">
+                                      <textarea class="textarea" rows="5" placeholder="Write your ride experience"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <center><button class="button button--outline">SEND FEEDBACK</button></center>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page10.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">TRIP LIST</div>
+                              </ons-toolbar>
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page11.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">NEW REQUEST</div>
+                              </ons-toolbar>
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page12.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">YOUR PROFILE</div>
+                              </ons-toolbar>
+                            </ons-page>
+                        </ons-template>
+                        <ons-template id="page13.html">
+                            <ons-page ng-controller="PageController">
+                              <ons-toolbar>
+                                  <div class="left">
+                                      <ons-toolbar-button ng-click="menu.toggle()">
+                                      <ons-icon icon="ion-drag" size="28px" fixed-width="false"></ons-icon>
+                                      </ons-toolbar-button>
+                                  </div>
+                                  <div class="center logo">FAQ</div>
+                              </ons-toolbar>
+
+                              <div class="container">
+                                <div class="panel-group" id="accordion">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse in">
+                                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                    </div>
+                                  </div>
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse">
+                                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                    </div>
+                                  </div>
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse">
+                                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                    </div>
+                                  </div>
+                                </div> 
+                              </div>
+                            </ons-page>
+                        </ons-template>
+                        
+                     <div id="station_list">
+                         
+                         <ul class="list station_list">
+                           <li class="list__item list__item--chevron" class="junctions">Mejestic </li>
+                           <li class="list__item list__item--chevron" class="junctions">Yeshwanthpura</li>
+                           <li class="list__item list__item--chevron" class="junctions">K R Pura</li>
+                         </ul>
+                         <!--  <ul class="list station_list_pick_only">
+                           <li class="list__item list__item--chevron" class="junctions">Mejestic </li>
+                           <li class="list__item list__item--chevron" class="junctions">Yeshwanthpura</li>
+                           <li class="list__item list__item--chevron" class="junctions">K R Pura</li>
+                         </ul>
+                         <ul class="list station_list_roundrip_one">
+                           <li class="list__item list__item--chevron" class="junctions">Mejestic </li>
+                           <li class="list__item list__item--chevron" class="junctions">Yeshwanthpura</li>
+                           <li class="list__item list__item--chevron" class="junctions">K R Pura</li>
+                         </ul>
+                         <ul class="list station_list_roundrip_two">
+                           <li class="list__item list__item--chevron" class="junctions">Mejestic </li>
+                           <li class="list__item list__item--chevron" class="junctions">Yeshwanthpura</li>
+                           <li class="list__item list__item--chevron" class="junctions">K R Pura</li>
+                         </ul> -->
+                     </div>
+
+
+
+                                     
+              <script type="text/javascript" src="js/index.js"></script>
+
+              <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzc_pwM9rmNoEgsgbqHati0uCEKq415Ng&callback=initMap"></script>
+              <script type="text/javascript" src="js/script.js"></script>
+              <!-- <script type="text/javascript" src="js/jquery-2.1.4.js"></script> -->
+    </body>
+</html>
